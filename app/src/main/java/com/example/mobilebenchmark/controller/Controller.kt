@@ -13,7 +13,6 @@ class Controller {
 
     fun start () : TestModel ?{
 
-
         //val cpuScore : Float = floatingPoint().toFloat()
         val memoryScore : Float = 0.0f
         val gpuScore : Float = 0.0f
@@ -41,20 +40,21 @@ class Controller {
         return withContext(Dispatchers.IO){
             val listOfArrays = mutableListOf<FloatArray>()
             for (i in 1 .. 100){
-                val arrayOfFloats = FloatArray(100000)
+                val arrayOfFloats = FloatArray(500000)
                 for (j in arrayOfFloats.indices){
                     arrayOfFloats[j] = generateRandomFloat()
                 }
                 listOfArrays.add(arrayOfFloats)
             }
-            val timeFloatingPoint = measureTimeMillis{
-                listOfArrays.forEach{
-                    for (j in 1 until it.size step 2){
-                        val mulResult : Float = it[j - 1] * it[j]
-                        val divResult : Float = it[j - 1] / it[j]
-                    }
+            val timeStart = System.currentTimeMillis()
+            listOfArrays.forEach{
+                for (j in 1 until it.size step 2){
+                    val mulResult : Float = it[j - 1] * it[j]
+                    val divResult : Float = it[j - 1] / it[j]
                 }
             }
+            val timeEnd = System.currentTimeMillis()
+            val timeFloatingPoint = timeEnd - timeStart
             timeFloatingPoint
         }
     }
