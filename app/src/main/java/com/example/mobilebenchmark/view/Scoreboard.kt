@@ -1,4 +1,4 @@
-package com.example.mobilebenchmark.View
+package com.example.mobilebenchmark.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box

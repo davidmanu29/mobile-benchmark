@@ -1,14 +1,4 @@
-package com.example.mobilebenchmark.View.Components
-
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.foundation.clickable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.composed
-import androidx.compose.ui.graphics.graphicsLayer
+package com.example.mobilebenchmark.view.components
 
 enum class ButtonState { Pressed, Idle }
 /*fun Modifier.pressClickEffect() = composed {

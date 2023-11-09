@@ -5,16 +5,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.mobilebenchmark.View.Navigation
-import com.example.mobilebenchmark.ui.theme.MobileBenchmarkTheme
+import com.example.mobilebenchmark.view.Navigation
 import androidx.navigation.compose.rememberNavController
+import com.example.mobilebenchmark.controller.Controller
 
 class MainActivity : ComponentActivity() {
 
@@ -23,7 +16,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
                 val navController = rememberNavController()
-                Navigation(navController)
+                val controller = Controller()
+                Navigation(navController, controller)
         }
     }
 }
