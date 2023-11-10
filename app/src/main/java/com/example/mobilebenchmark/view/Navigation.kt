@@ -5,21 +5,23 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.mobilebenchmark.controller.Controller
+import com.example.mobilebenchmark.db.BenchmarkDao
+import com.example.mobilebenchmark.db.BenchmarkDb
 
 
 @Composable
-fun Navigation(navHostController : NavHostController, controller: Controller){
+fun Navigation(navHostController : NavHostController, controller: Controller, dao: BenchmarkDao){
 
     NavHost(navController = navHostController, startDestination = ScreenRoutes.MainScreen.route){
 
         composable(ScreenRoutes.MainScreen.route){
-            MainScreen(navController = navHostController, controller = controller)
+            MainScreen(navController = navHostController)
         }
         composable(ScreenRoutes.TestScreen.route){
-            TestScreen(navController = navHostController)
+            TestScreen(controller)
         }
         composable(ScreenRoutes.Scoreboard.route){
-            ScoreBoard(navController = navHostController)
+            ScoreBoard(navController = navHostController, dao)
         }
     }
 }
