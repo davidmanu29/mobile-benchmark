@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
                 val navController = rememberNavController()
-                val controller = Controller()
+                val controller = Controller(this)
                 Navigation(navController, controller, db.scoreDao)
         }
     }

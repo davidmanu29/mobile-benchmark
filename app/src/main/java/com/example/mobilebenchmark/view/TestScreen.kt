@@ -1,5 +1,6 @@
 package com.example.mobilebenchmark.view
 
+import android.graphics.Typeface
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.Image
@@ -41,10 +42,13 @@ import kotlinx.coroutines.launch
 @Composable
 fun TestScreen( controller : Controller) {
 
-    var score by remember {
+    var scoreCPU by remember {
         mutableStateOf(0L)
     }
 
+    var scoreMEM by remember {
+        mutableStateOf(0L)
+    }
     val scope = rememberCoroutineScope()
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -72,32 +76,43 @@ fun TestScreen( controller : Controller) {
                 )
             )
             Spacer(modifier = Modifier.height(50.dp))
+            Button(
+                onClick = {
+                    scope.launch {
+                        scoreCPU = controller.getCpuResult()
+                        scoreMEM = controller.getMemoryResult()
+                    }
+                }
+            ) {
+                Text(text = "START")
+            }
+            Spacer(modifier = Modifier.height(50.dp))
             Text(
-                text = score.toString(),
+                text = "CPU Score is: " + scoreCPU.toString(),
                 fontSize = 25.sp,
                 style = TextStyle(
                     fontFamily = FontFamily.SansSerif,
                     color = Color(0xffD5D2D2)
                 )
             )
-            Spacer(modifier = Modifier.height(50.dp))
-            Button(
-                onClick = {
-                    scope.launch {
-//                        Log.d("SCORE", "BtnClicked")
-//                        val time1 = System.currentTimeMillis()
-//                        Log.d("SCORE", "Time before: $time1")
-//                        controller.floatingPoint()
-//                        val time2 = System.currentTimeMillis()
-//                        Log.d("SCORE", "Time after: $time2")
-//                        score = time2 - time1
-//                        Log.d("SCORE", score.toString())
-                        score = controller.getCpuResult()
-                    }
-                }
-            ) {
-                Text(text = "START")
-            }
+            Spacer(modifier = Modifier.height(25.dp))
+            Text(
+                text = "Memory Score is: " + scoreMEM.toString() ,
+                fontSize = 25.sp,
+                style = TextStyle(
+                    fontFamily = FontFamily.SansSerif,
+                    color = Color(0xffD5D2D2)
+                )
+            )
+            Spacer(modifier = Modifier.height(25.dp))
+            Text(
+                text = "GPU Score is: ",
+                fontSize = 25.sp,
+                style = TextStyle(
+                    fontFamily = FontFamily.SansSerif,
+                    color = Color(0xffD5D2D2)
+                )
+            )
         }
     }
 }
