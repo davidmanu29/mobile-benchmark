@@ -1,6 +1,18 @@
 package com.example.mobilebenchmark.controller
 
 import android.content.Context
+import android.content.res.Resources
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.PixelFormat
+import android.hardware.HardwareBuffer
+import android.media.ImageReader
+import android.os.Build
+import androidx.annotation.RequiresApi
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.platform.LocalContext
+import com.example.mobilebenchmark.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlin.math.pow
@@ -86,7 +98,8 @@ class Controller(private val context : Context) {
             for (i in 1 until 5000){
                 val charList = mutableListOf<Char>()
                 stringToEncrypt.forEach {
-                    charList.add((it.code * Random.nextInt(2.0.pow(5).toInt())).toChar())
+                    val randomCipherCode = Random.nextInt(2.0.pow(5).toInt())
+                    charList.add((it.code * randomCipherCode).toChar())
                 }
                 val resultingString = charList.joinToString(separator = "")
             }
@@ -94,14 +107,13 @@ class Controller(private val context : Context) {
     }
 
     private fun generateRandomFloat(): Float {
-
         return Random.nextInt(1, 10000000) + Random.nextFloat()
     }
     suspend fun floatingPoint(): Long {
         return withContext(Dispatchers.IO) {
             val listOfArrays = mutableListOf<FloatArray>()
             for (i in 1..100) {
-                val arrayOfFloats = FloatArray(100000)
+                val arrayOfFloats = FloatArray(40000)
                 for (j in arrayOfFloats.indices) {
                     arrayOfFloats[j] = generateRandomFloat()
                 }
@@ -118,7 +130,7 @@ class Controller(private val context : Context) {
     }
     suspend fun getCpuResult(): Long {
         var totalTime = 0L
-        for (i in 1 .. 4){
+        for (i in 1 .. 5){
             val time1 = System.currentTimeMillis()
             floatingPoint()
             encrypt()
@@ -126,7 +138,7 @@ class Controller(private val context : Context) {
             totalTime += time2 - time1
         }
 
-        return totalTime/4
+        return totalTime/5
     }
     suspend fun memoryTest(arrayT11 : Array<Int>, arrayT12 : Array<Int>,
                            arrayT21 : Array<Int>, arrayT22 : Array<Int>,
@@ -137,12 +149,12 @@ class Controller(private val context : Context) {
                 arrayT11[i] = arrayT12[i]
                 arrayT12[i] = aux
             }
-            for (i in 1 until 1200000){
+            for (i in 1 until 2000000){
                 val aux = arrayT21[i]
                 arrayT21[i] = arrayT22[i]
                 arrayT22[i] = aux
             }
-            for (i in 1 until 3500000){
+            for (i in 1 until 3000000){
                 val aux = arrayT31[i]
                 arrayT31[i] = arrayT32[i]
                 arrayT32[i] = aux
@@ -161,10 +173,10 @@ class Controller(private val context : Context) {
         var totalTime = 0L
         val arrayT11 = Array(500000){ 0 }
         val arrayT12 = Array(500000){ 0 }
-        val arrayT21 = Array(1200000) { 0 }
-        val arrayT22 = Array(1200000) { 0 }
-        val arrayT31 = Array(3500000) { 0 }
-        val arrayT32 = Array(3500000) { 0 }
+        val arrayT21 = Array(2000000) { 0 }
+        val arrayT22 = Array(2000000) { 0 }
+        val arrayT31 = Array(3000000) { 0 }
+        val arrayT32 = Array(3000000) { 0 }
         fillRandomArray(arrayT11)
         fillRandomArray(arrayT12)
         fillRandomArray(arrayT21)
