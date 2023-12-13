@@ -18,8 +18,6 @@ import kotlinx.coroutines.withContext
 import kotlin.math.pow
 import kotlin.random.Random
 
-
-//TODO Implement it.
 class Controller(private val context : Context) {
 
     /*@SuppressLint("GetInstance")
@@ -69,7 +67,7 @@ class Controller(private val context : Context) {
         getMemoryResult()
     }
 
-    suspend fun encrypt() {
+    private suspend fun encrypt() {
         return withContext(Dispatchers.IO){
             val stringToEncrypt = " TfiUszbd5nKt59SpQ2uYK24YQkkocQuQ\n" +
                     "1frPuEnOKqT9lzHoAyOAqaxIK9yHgmPA\n" +
@@ -95,7 +93,7 @@ class Controller(private val context : Context) {
                     "g87fFOZyJcgk492X2HdpGRoi44hUeLiH\n" +
                     "G5gZ08b133lHMIoqNYdjy9BltjmH2SgA\n" +
                     "8oX8p9J30ONPwRphAT18RUK1ThMkL61w"
-            for (i in 1 until 5000){
+            for (i in 1 until 1000){
                 val charList = mutableListOf<Char>()
                 stringToEncrypt.forEach {
                     val randomCipherCode = Random.nextInt(2.0.pow(5).toInt())
@@ -113,7 +111,7 @@ class Controller(private val context : Context) {
         return withContext(Dispatchers.IO) {
             val listOfArrays = mutableListOf<FloatArray>()
             for (i in 1..100) {
-                val arrayOfFloats = FloatArray(40000)
+                val arrayOfFloats = FloatArray(10000)
                 for (j in arrayOfFloats.indices) {
                     arrayOfFloats[j] = generateRandomFloat()
                 }
@@ -130,14 +128,13 @@ class Controller(private val context : Context) {
     }
     suspend fun getCpuResult(): Long {
         var totalTime = 0L
-        for (i in 1 .. 5){
+        for (i in 1 .. 5){ // initial 5
             val time1 = System.currentTimeMillis()
             floatingPoint()
             encrypt()
             val time2 = System.currentTimeMillis()
             totalTime += time2 - time1
         }
-
         return totalTime/5
     }
     suspend fun memoryTest(arrayT11 : Array<Int>, arrayT12 : Array<Int>,
@@ -171,11 +168,11 @@ class Controller(private val context : Context) {
 
     suspend fun getMemoryResult() : Long {
         var totalTime = 0L
-        val arrayT11 = Array(500000){ 0 }
+        val arrayT11 = Array(500000){ 0 } // initial 5000000
         val arrayT12 = Array(500000){ 0 }
-        val arrayT21 = Array(2000000) { 0 }
+        val arrayT21 = Array(2000000) { 0 } // initial 2000000
         val arrayT22 = Array(2000000) { 0 }
-        val arrayT31 = Array(3000000) { 0 }
+        val arrayT31 = Array(3000000) { 0 } // initial 3000000
         val arrayT32 = Array(3000000) { 0 }
         fillRandomArray(arrayT11)
         fillRandomArray(arrayT12)
@@ -183,7 +180,7 @@ class Controller(private val context : Context) {
         fillRandomArray(arrayT22)
         fillRandomArray(arrayT31)
         fillRandomArray(arrayT32)
-        for (i in 1 .. 5){
+        for (i in 1 .. 5){ // initial 5
             val time1 = System.currentTimeMillis()
             memoryTest(arrayT11, arrayT12, arrayT21, arrayT22, arrayT31, arrayT32)
             val time2 = System.currentTimeMillis()

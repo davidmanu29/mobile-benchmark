@@ -189,33 +189,32 @@ fun TestScreen(controller : Controller) {
                     color = Color(0xffD5D2D2)
                 )
             )
+
             Spacer(modifier = Modifier.height(50.dp))
-             if (started){
+            if (started){
                 BoxWithConstraints (modifier = Modifier.fillMaxSize()){
                     var totalTime = 0L
                     Canvas(modifier = Modifier.matchParentSize()){
                          totalTime = measureTimeMillis {
-                            for (j in 0 until 50000) {
+                            for (j in 0 until 30000) {
                                 drawCircle(
                                     color = Color.Yellow,
                                     radius = 50f,
                                     center = Offset(j.toFloat(), 1f)
                                 )
                             }
-                            for (j in 0 until 50000) {
+                            for (j in 0 until 30000) {
                                 drawRect(
                                     color = Color.Blue,
                                     size = Size(50f, 100f)
                                 )
                             }
-
                         }
                     }
                     LaunchedEffect(key1 = true){
                         scoreGPU = totalTime
                     }
                 }
-
             }
         }
     }
